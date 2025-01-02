@@ -1,4 +1,4 @@
-# SSS-System (Sensor Setup Shortening System)
+# Sensor Setup Shortening System (4S)
 
 # 用途・目的
 
