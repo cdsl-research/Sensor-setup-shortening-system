@@ -18,16 +18,18 @@ def main():
 
     if(I2C_devices):
         for I2C_device in I2C_devices:
-            print(hex(I2C_device))
+            pass
+            #print(hex(I2C_device))
     else:
         print("I2Cに接続しているセンサーが見つかりませんでした")
     
     # 実行
     sensor_info = scan_register(I2C_device, i2c)
+    print(sensor_info)
     file_info = send_info(sensor_info)
     
-    #for i in file_info["files"]:
-    #    get_file(file_info["name"], i)
+    for i in file_info["files"]:
+        get_file(file_info["name"], i)
         
     return file_info
 
@@ -37,7 +39,7 @@ def scan_register(I2C_addr, i2c):
     values = []
     sensor_info = dict()
     
-    print("IDレジスタを探索中...")
+    #print("IDレジスタを探索中...")
     for reg in range(0x00, 0xFF+1):
         try:
             # 各レジスタアドレスから1バイト読み取る
@@ -52,10 +54,10 @@ def scan_register(I2C_addr, i2c):
             # 読み取りに失敗した場合は無視
             values.append(-1)
     
-    values.append(-1)
+    values.append(256)
     
-    print(f"I2Cアドレス{I2C_addr}, レジスタの値{values}, 読み取り可能レジスタ数{r_reg_count}")
-    sensor_info = {"I2C_addr": I2C_addr, "register_num": values, "readable_register_num": r_reg_count}
+#    print(f"I2Cアドレス{I2C_addr}, レジスタの値{values}, 読み取り可能レジスタ数{r_reg_count}")
+    sensor_info = {"I2C_addr": I2C_addr, "register_num": values}
     return sensor_info
     
         
